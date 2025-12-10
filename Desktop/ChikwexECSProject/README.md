@@ -1,6 +1,6 @@
 🚀 Secure 3-Tier AWS ECS Application with Terraform
 
-Author: Vamshikrishna Kalakonda
+Author: Chikwe C. Azinge
 
 1. 📌 Project Overview
 
