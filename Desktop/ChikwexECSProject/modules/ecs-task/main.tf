@@ -2,12 +2,12 @@
 # Fetch latest ECR images by tag
 ############################################
 data "aws_ecr_image" "frontend" {
-  repository_name = "vamshi-kalakonda-ecs-app"
+  repository_name = "chikwex-ecs-app"
   image_tag       = "frontend-latest"
 }
 
 data "aws_ecr_image" "backend" {
-  repository_name = "vamshi-kalakonda-ecs-app"
+  repository_name = "chikwex-ecs-app"
   image_tag       = "backend-latest"
 }
 

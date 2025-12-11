@@ -1,5 +1,5 @@
 module "backend" {
   source          = "./backend"
-  bucket_name     = "terraform-state-vamshi-ecs"
-  lock_table_name = "vamshi-terraform-locks"
+  bucket_name     = "terraform-state-chikwex-ecs"
+  lock_table_name = "chikwex-terraform-locks"
 }

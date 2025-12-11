@@ -1,6 +1,6 @@
 🚀 Secure 3-Tier AWS ECS Application with Terraform
 
-Author: Vamshikrishna Kalakonda
+Author: chikwexkrishna Kalakonda
 
 1. 📌 Project Overview
 
@@ -91,18 +91,18 @@ docker build -t frontend-latest ./frontend
 docker build -t backend-latest ./backend
 
 Push to ECR:
-aws ecr get-login-password --region us-east-1 \
-  | docker login --username AWS --password-stdin <ACCOUNT>.dkr.ecr.us-east-1.amazonaws.com
+aws ecr get-login-password --region us-east-2 \
+  | docker login --username AWS --password-stdin <ACCOUNT>.dkr.ecr.us-east-2.amazonaws.com
 
-docker tag frontend-latest <ACCOUNT>.dkr.ecr.us-east-1.amazonaws.com/vamshi-kalakonda-ecs-app:frontend-latest
-docker tag backend-latest  <ACCOUNT>.dkr.ecr.us-east-1.amazonaws.com/vamshi-kalakonda-ecs-app:backend-latest
+docker tag frontend-latest <ACCOUNT>.dkr.ecr.us-east-2.amazonaws.com/chikwex-ecs-app:frontend-latest
+docker tag backend-latest  <ACCOUNT>.dkr.ecr.us-east-2.amazonaws.com/chikwex-ecs-app:backend-latest
 
-docker push <ACCOUNT>.dkr.ecr.us-east-1.amazonaws.com/vamshi-kalakonda-ecs-app:frontend-latest
-docker push <ACCOUNT>.dkr.ecr.us-east-1.amazonaws.com/vamshi-kalakonda-ecs-app:backend-latest
+docker push <ACCOUNT>.dkr.ecr.us-east-2.amazonaws.com/chikwex-ecs-app:frontend-latest
+docker push <ACCOUNT>.dkr.ecr.us-east-2.amazonaws.com/chikwex-ecs-app:backend-latest
 
 5. ☁ Terraform Remote State (S3 + DynamoDB)
 S3 bucket:
-aws s3api create-bucket --bucket vamshi-ecs-terraform-state --region us-east-1
+aws s3api create-bucket --bucket chikwex-ecs-terraform-state --region us-east-2
 
 DynamoDB table:
 aws dynamodb create-table \
@@ -113,7 +113,7 @@ aws dynamodb create-table \
 
 Backend (backend.tf):
 
-bucket = "vamshi-ecs-terraform-state"
+bucket = "chikwex-ecs-terraform-state"
 
 key = "dev/terraform.tfstate"
 
@@ -222,8 +222,8 @@ aws logs tail /ecs/frontend --since 10m --follow
 
 Force ECS deployment:
 aws ecs update-service \
-  --cluster vamshi-ecs-app-ecs-cluster \
-  --service vamshi-ecs-app-backend-service \
+  --cluster chikwex-ecs-app-ecs-cluster \
+  --service chikwex-ecs-app-backend-service \
   --force-new-deployment
 
 8. 🌐 Application URLs

@@ -3,7 +3,7 @@
 ############################################
 module "ecr" {
   source          = "../../modules/ecr"
-  repository_name = "vamshi-kalakonda-ecs-app"
+  repository_name = "chikwex-ecs-app"
 }
 
 ############################################
@@ -12,14 +12,14 @@ module "ecr" {
 module "vpc" {
   source = "../../modules/vpc"
 
-  project = "vamshi-ecs-app"
+  project = "chikwex-ecs-app"
 
   vpc_cidr = "10.0.0.0/16"
 
   public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
   private_subnet_cidrs = ["10.0.3.0/24", "10.0.4.0/24"]
 
-  azs = ["us-east-1a", "us-east-1b"]
+  azs = ["us-east-2a", "us-east-2b"]
 }
 
 ############################################
@@ -28,7 +28,7 @@ module "vpc" {
 module "security_groups" {
   source = "../../modules/security-groups"
 
-  project              = "vamshi-ecs-app"
+  project              = "chikwex-ecs-app"
   vpc_id               = module.vpc.vpc_id
   private_subnet_cidrs = ["10.0.3.0/24", "10.0.4.0/24"]
 }
@@ -69,7 +69,7 @@ module "db_secrets" {
 ############################################
 module "iam" {
   source  = "../../modules/iam"
-  project = "vamshi-ecs-app"
+  project = "chikwex-ecs-app"
 
   db_secret_arn = module.db_secrets.secret_arn
 }
@@ -86,7 +86,7 @@ module "logs" {
 ############################################
 module "ecs_cluster" {
   source  = "../../modules/ecs"
-  project = "vamshi-ecs-app"
+  project = "chikwex-ecs-app"
 }
 
 ############################################
@@ -95,7 +95,7 @@ module "ecs_cluster" {
 module "ecs_tasks" {
   source = "../../modules/ecs-task"
 
-  project = "vamshi-ecs-app"
+  project = "chikwex-ecs-app"
   region  = var.region
 
   repo_url = module.ecr.repo_url
@@ -118,7 +118,7 @@ module "ecs_tasks" {
 module "alb" {
   source = "../../modules/alb"
 
-  project        = "vamshi-ecs-app"
+  project        = "chikwex-ecs-app"
   vpc_id         = module.vpc.vpc_id
   public_subnets = module.vpc.public_subnets
   alb_sg_id      = module.security_groups.alb_sg_id
@@ -133,7 +133,7 @@ module "alb" {
 module "ecs_services" {
   source = "../../modules/ecs-services"
 
-  project = "vamshi-ecs-app"
+  project = "chikwex-ecs-app"
 
   vpc_id          = module.vpc.vpc_id
   private_subnets = module.vpc.private_subnets
@@ -155,7 +155,7 @@ module "ecs_services" {
 module "cloudwatch" {
   source = "../../modules/cloudwatch"
 
-  project       = "vamshi-ecs-app"
+  project       = "chikwex-ecs-app"
   cluster_name  = module.ecs_cluster.cluster_name
   sns_topic_arn = aws_sns_topic.alerts.arn
 }
@@ -163,11 +163,11 @@ module "cloudwatch" {
 
 
 resource "aws_sns_topic" "alerts" {
-  name = "vamshi-ecs-app-alerts-topic"
+  name = "chikwex-ecs-app-alerts-topic"
 }
 
 resource "aws_sns_topic_subscription" "email" {
   topic_arn = aws_sns_topic.alerts.arn
   protocol  = "email"
-  endpoint  = "vamshi31cs@gmail.com" # CHANGE THIS
+  endpoint  = "chikwex31cs@gmail.com" # CHANGE THIS
 }

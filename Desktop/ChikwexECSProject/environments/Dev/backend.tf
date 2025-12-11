@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "terraform-state-vamshi-ecs"
+    bucket         = "terraform-state-chikwex-ecs"
     key            = "dev/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "vamshi-terraform-locks"
+    region         = "us-east-2"
+    dynamodb_table = "chikwex-terraform-locks"
     encrypt        = true
   }
 }
